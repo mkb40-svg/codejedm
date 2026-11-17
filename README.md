@@ -15,10 +15,12 @@ All results are produced by a simulation model. No parameter is calibrated to da
 | `analysis.py` | Integrator check, Fisher information (Table 6), expected profile likelihood, robustness to the transfer function (Table 8) |
 | `mc2.py` | Monte Carlo parameter recovery (Table 7) |
 | `figures.py` | Figures 1-7 (SVG and PNG) |
+| `reproduce.json`, `analysis.json`, `mc2.json` | Outputs used in the paper |
+| `fig*.png`, `fig*.svg` | Figures as they appear in the paper |
 
 ## Running
 
-Python 3.11 with NumPy, SciPy and Matplotlib.
+Python 3.11 or later with NumPy, SciPy and Matplotlib. Run the scripts from the repository folder:
 
 ```
 python reproduce.py      # writes res/reproduce.json, res/lost_grid.npz, res/cohort.npz
@@ -27,7 +29,7 @@ python mc2.py            # writes res/mc2.json, res/mc.npz   (about 15 minutes)
 python figures.py        # writes fig/*.svg, fig/*.png
 ```
 
-The scripts expect sibling folders `res/` and `fig/` next to the folder that holds the code. Random seeds are fixed, so the numbers in the manuscript are reproduced exactly.
+The subfolders `res/` and `fig/` are created automatically. Random seeds are fixed; reruns reproduce the published numbers to all reported digits (differences between NumPy/SciPy versions are below 1e-4 in relative terms).
 
 ## Numerical settings
 

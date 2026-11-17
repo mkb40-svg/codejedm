@@ -10,6 +10,9 @@ from scipy.stats import spearmanr
 import adaptation_model as m1
 import adaptation_model_v2 as m2
 
+RES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "res")
+os.makedirs(RES, exist_ok=True)
+
 out = {}
 T = np.linspace(0, 30, 601)
 
@@ -31,7 +34,7 @@ for i, a in enumerate(al):
         lost[i, j] = dd; share[i, j] = dd / idl
 out["lost_range"] = [float(np.nanmin(lost)), float(np.nanmax(lost))]
 out["lost_share_max"] = float(np.nanmax(share))
-np.savez(os.path.join(os.path.dirname(__file__), "..", "res", "lost_grid.npz"), al=al, et=et, lost=lost, share=share)
+np.savez(os.path.join(RES, "lost_grid.npz"), al=al, et=et, lost=lost, share=share)
 
 # identifiability table (fit eta to reference accuracy for 5 alphas)
 ref = m1.simulate(p, t_end=30, n=601)["p_correct"]
@@ -120,7 +123,7 @@ def partial_spearman(x, y, z):
     return float(np.corrcoef(resid(rx, rz), resid(ry, rz))[0, 1])
 out["pcorr_alpha"] = {int(s): partial_spearman(P[:, s], la, le) for s in [3, 5, 10, 15, 20, 25, 30]}
 out["pcorr_eta"] = {int(s): partial_spearman(P[:, s], le, la) for s in [3, 5, 10, 15, 20, 25, 30]}
-np.savez(os.path.join(os.path.dirname(__file__), "..", "res", "cohort.npz"), P=P, taus=taus, la=la, le=le)
+np.savez(os.path.join(RES, "cohort.npz"), P=P, taus=taus, la=la, le=le)
 
 # ---------------------------------------------------------------- schedules
 def run_schedule(q, cut, t_end=30):
@@ -150,5 +153,5 @@ for w in [0.5, 0.7, 0.8, 0.9]:
                   "sched_gain_pp": 100 * (vals[best_c] - cont), "lower_gain_pp": 100 * (lower - cont)})
 out["schedules"] = sched
 
-json.dump(out, open(os.path.join(os.path.dirname(__file__), "..", "res", "reproduce.json"), "w"), indent=1, default=float)
+json.dump(out, open(os.path.join(RES, "reproduce.json"), "w"), indent=1, default=float)
 print(json.dumps(out, indent=1, default=float))

@@ -11,7 +11,8 @@ import numpy as np
 from scipy.optimize import minimize
 import fastsim as fs
 
-RES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "res")
+RES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "res")
+os.makedirs(RES, exist_ok=True)
 K, R = 20, 200
 LOG15 = np.log(1.5)
 

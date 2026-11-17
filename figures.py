@@ -9,8 +9,9 @@ from matplotlib.colors import LogNorm
 import fastsim as fs
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-RES = os.path.join(HERE, "..", "res")
-FIG = os.path.join(HERE, "..", "fig")
+RES = os.path.join(HERE, "res")
+FIG = os.path.join(HERE, "fig")
+os.makedirs(FIG, exist_ok=True)
 rep = json.load(open(os.path.join(RES, "reproduce.json")))
 ana = json.load(open(os.path.join(RES, "analysis.json")))
 

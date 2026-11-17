@@ -16,7 +16,8 @@ import fastsim as fs
 import adaptation_model as m1
 import adaptation_model_v2 as m2
 
-RES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "res")
+RES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "res")
+os.makedirs(RES, exist_ok=True)
 out = {}
 K = 20                      # test items per measurement occasion
 LOG15 = np.log(1.5)
